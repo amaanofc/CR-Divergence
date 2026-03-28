@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://cr-divergence-backend.up.railway.app/api/$1"
+    }
+  ]
+}

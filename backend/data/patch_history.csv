@@ -1,0 +1,44 @@
+date,card_name,change_type,stat_changed,magnitude
+2023-02-06,Hog Rider,nerf,damage,-0.08
+2023-02-06,Goblin Barrel,buff,damage,+0.06
+2023-04-03,Mega Knight,nerf,spawn_damage,-0.12
+2023-04-03,Skeleton Army,buff,count,+0.05
+2023-06-05,Sparky,buff,damage,+0.10
+2023-06-05,Wizard,nerf,damage,-0.07
+2023-08-07,Balloon,buff,damage,+0.09
+2023-08-07,Valkyrie,nerf,hitpoints,-0.06
+2023-10-02,Miner,nerf,hitpoints,-0.08
+2023-10-02,Bandit,buff,damage,+0.07
+2023-10-02,Poison,nerf,damage,-0.05
+2023-12-04,Graveyard,nerf,duration,-0.10
+2023-12-04,Lumberjack,buff,hitpoints,+0.06
+2024-01-15,Hog Rider,buff,damage,+0.10
+2024-01-15,Goblin Barrel,nerf,damage,-0.08
+2024-02-05,Pekka,nerf,hitpoints,-0.09
+2024-02-05,Musketeer,buff,damage,+0.07
+2024-03-04,Inferno Dragon,buff,damage,+0.11
+2024-03-04,Night Witch,nerf,bat_spawn_rate,-0.07
+2024-04-01,Royal Giant,nerf,range,-0.06
+2024-04-01,Ice Wizard,buff,slow_duration,+0.08
+2024-05-06,Ram Rider,buff,hitpoints,+0.09
+2024-05-06,Tornado,nerf,pull_strength,-0.07
+2024-06-03,Electro Wizard,nerf,damage,-0.06
+2024-06-03,Princess,buff,damage,+0.08
+2024-07-01,Golem,nerf,hitpoints,-0.10
+2024-07-01,Barbarians,buff,damage,+0.07
+2024-08-05,Fisherman,buff,hitpoints,+0.09
+2024-08-05,Zap,nerf,damage,-0.05
+2024-09-02,The Log,buff,damage,+0.06
+2024-09-02,Arrows,nerf,damage,-0.04
+2024-10-07,Sparky,nerf,charge_time,+0.08
+2024-10-07,Bandit,nerf,damage,-0.07
+2024-11-04,Miner,buff,hitpoints,+0.08
+2024-11-04,Graveyard,buff,skeleton_count,+0.06
+2024-12-02,Mega Knight,buff,hitpoints,+0.07
+2024-12-02,Lumberjack,nerf,damage,-0.06
+2025-01-06,Balloon,nerf,hitpoints,-0.08
+2025-01-06,Valkyrie,buff,damage,+0.09
+2025-02-03,Hog Rider,nerf,hitpoints,-0.07
+2025-02-03,Skeleton Army,nerf,count,-0.05
+2025-03-03,Pekka,buff,damage,+0.10
+2025-03-03,Ram Rider,nerf,damage,-0.06
