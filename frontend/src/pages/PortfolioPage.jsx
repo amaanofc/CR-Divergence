@@ -7,7 +7,38 @@ import BacktestReport from '../components/BacktestReport'
 import AlphaDecay from '../components/AlphaDecay'
 import AnalystChat from '../components/AnalystChat'
 import SynergyMatrix from '../components/SynergyMatrix'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+
+function mean(arr) {
+  return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0
+}
+
+// Client-side DAR — same formula as ManualTab / backend compute_dar
+// UCB component without personal battle data uses win_rate as the UCB estimate
+function computeDARFromDeck(cards) {
+  if (!cards || !cards.length) return 0
+  const esrBar  = mean(cards.map(c => c.esr        ?? 0))
+  const mpsBar  = mean(cards.map(c => c.mps_z      ?? 0))
+  const ucbBar  = mean(cards.map(c => ((c.win_rate ?? 0.5) - 0.5) / 0.3))
+  const betaBar = mean(cards.map(c => c.deck_beta  ?? 0.9))
+  const raw = 0.35 * esrBar + 0.35 * mpsBar + 0.20 * ucbBar - 0.10 * betaBar
+  return Math.tanh(raw)
+}
+
+function darColor(dar) {
+  if (dar >= 0.5) return '#22c55e'
+  if (dar >= 0.2) return '#ff6b00'
+  if (dar >= 0)   return '#e0e0e0'
+  if (dar >= -0.3) return '#eab308'
+  return '#ef4444'
+}
+function darLabel(dar) {
+  if (dar >= 0.5)  return 'ELITE'
+  if (dar >= 0.2)  return 'STRONG'
+  if (dar >= 0)    return 'VIABLE'
+  if (dar >= -0.3) return 'WEAK'
+  return 'REBUILD'
+}
 
 export default function PortfolioPage() {
   const { profile, playerTag } = usePlayer()
@@ -18,12 +49,18 @@ export default function PortfolioPage() {
 
   if (!profile) return <Navigate to="/connect" replace />
 
-  const { clash_alpha, dar_score, current_deck, deck_stats } = profile
+  const { clash_alpha, current_deck, deck_stats } = profile
   const suggestions = rebalance?.suggestions || []
 
-  const dar = dar_score ?? 0
-  const darCol = dar >= 0.5 ? '#22c55e' : dar >= 0.2 ? '#ff6b00' : dar >= 0 ? '#e0e0e0' : dar >= -0.3 ? '#eab308' : '#ef4444'
-  const darLbl = dar >= 0.5 ? 'ELITE' : dar >= 0.2 ? 'STRONG' : dar >= 0 ? 'VIABLE' : dar >= -0.3 ? 'WEAK' : 'REBUILD'
+  // Always compute DAR fresh from deck card stats — never trust a potentially
+  // stale cached profile.dar_score (which may predate the DAR feature).
+  // Prefer backend value only if it looks valid (non-zero or deck is genuinely average).
+  const darFromCards = useMemo(() => computeDARFromDeck(current_deck), [current_deck])
+  const dar = (profile.dar_score != null && profile.dar_score !== 0)
+    ? profile.dar_score
+    : darFromCards
+  const darCol = darColor(dar)
+  const darLbl = darLabel(dar)
 
   return (
     <div className="p-6 max-w-5xl mx-auto pb-12">
