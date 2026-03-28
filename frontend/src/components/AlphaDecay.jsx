@@ -44,7 +44,10 @@ export default function AlphaDecay() {
 
   return (
     <div className="p-3 h-full flex flex-col">
-      <div className="text-bloomberg-accent font-bold text-sm mb-2">ALPHA DECAY — SURVIVAL ANALYSIS</div>
+      <div className="text-bloomberg-accent font-bold text-sm mb-1">CARD LIFESPAN — HOW LONG BUFFS LAST</div>
+      <div className="text-[10px] text-bloomberg-muted mb-2">
+        After a card gets buffed, how long before the meta catches up and the win-rate edge disappears?
+      </div>
 
       <div className="flex-1 min-h-0" style={{ minHeight: 200 }}>
         <ResponsiveContainer width="100%" height="100%">

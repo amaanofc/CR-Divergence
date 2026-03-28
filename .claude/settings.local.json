@@ -23,7 +23,16 @@
       "Bash(npx vite:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(grep -r \"TODO\\\\|FIXME\\\\|XXX\\\\|HACK\" /home/u90436ap/CR-Divergence/frontend/src --include=*.jsx --include=*.js)",
+      "WebSearch",
+      "Bash(pip3 install:*)",
+      "Bash(curl -s http://localhost:9001/api/optimize?budget=3.5)",
+      "Bash(curl -s http://localhost:9001/api/cards?market=ladder)",
+      "Bash(curl -s \"http://localhost:9001/api/cards/Knight/history\")",
+      "Bash(curl -s \"http://localhost:9001/api/rebalance/%23DEMO\")",
+      "Bash(curl -s \"http://localhost:9001/api/rebalance/%23CQL0L8PPR\")",
+      "Bash(npm run:*)"
     ]
   }
 }

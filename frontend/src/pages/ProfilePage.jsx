@@ -23,16 +23,16 @@ export default function ProfilePage() {
     <div className="flex-1 overflow-y-auto p-6 max-w-4xl mx-auto">
       {/* Hero Stat */}
       <div className="text-center mb-8">
-        <div className="text-bloomberg-muted text-xs mb-1">YOUR CLASH ALPHA</div>
+        <div className="text-bloomberg-muted text-xs mb-1">DECK PERFORMANCE SCORE</div>
         <div className={`text-5xl font-bold font-mono ${caColor}`}>
           {clash_alpha > 0 ? '+' : ''}{clash_alpha.toFixed(4)}
         </div>
         <div className="text-bloomberg-muted text-sm mt-2">
           {clash_alpha > 0
-            ? `Your deck generates ${(clash_alpha * 100).toFixed(1)}% more alpha than the average meta deck`
+            ? `Your deck outperforms ${(clash_alpha * 100).toFixed(1)}% above the meta average`
             : clash_alpha < -0.1
-              ? 'Your deck is underperforming the meta — consider rebalancing'
-              : 'Your deck is performing near meta average'
+              ? 'Your deck is below meta average — consider rebuilding'
+              : 'Your deck is on par with the meta average'
           }
         </div>
         <div className="text-bloomberg-muted text-xs mt-1">Player: {playerTag}</div>
@@ -55,13 +55,13 @@ export default function ProfilePage() {
         <StatCard
           label="Avg ESR"
           value={deck_stats.avg_esr.toFixed(3)}
-          subtitle="Elixir efficiency"
+          subtitle="Win edge per elixir"
           positive={deck_stats.avg_esr > 0}
         />
         <StatCard
-          label="Meta Beta"
+          label="Meta Sensitivity"
           value={deck_stats.meta_beta.toFixed(3)}
-          subtitle={deck_stats.meta_beta > 1 ? 'High meta risk' : 'Stable'}
+          subtitle={deck_stats.meta_beta > 1 ? 'Shifts with meta changes' : 'Stable vs patches'}
         />
         <StatCard
           label="Avg Elixir"
@@ -126,7 +126,7 @@ export default function ProfilePage() {
                   </span>
                 </div>
                 <div className="text-bloomberg-muted">
-                  UCB Score: {c.ucb_score?.toFixed(3)} | WR: {(c.win_rate * 100).toFixed(1)}%
+                  UCB Score: {c.ucb_score?.toFixed(3)} | WR: {((c.global_win_rate || c.win_rate || 0) * 100).toFixed(1)}%
                 </div>
               </div>
             ))}

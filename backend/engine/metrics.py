@@ -1,9 +1,11 @@
 """
 Metrics engine for Clash Markets.
 Computes all six invented statistics: MPS, ESR, MM, Deck Beta, ADR, Clash Alpha.
+Also computes DAR (Deck Alpha Rating) — the holistic sigmoidal composite.
 """
 import json
 import logging
+import math
 import os
 from datetime import datetime, timedelta
 
@@ -53,6 +55,17 @@ def compute_all_metrics() -> pd.DataFrame:
         raise RuntimeError("No market CSV files found. Run the scraper first.")
 
     combined = pd.concat(dfs, ignore_index=True)
+
+    # --- Normalize win rates per market to center around 0.50 ---
+    # Raw data comes from top-player battles (who win ~62-65% of games), so ALL
+    # cards appear inflated. Subtract market mean and add 0.50 to preserve
+    # relative ordering while making absolute values intuitive.
+    for market in combined["market"].unique():
+        mask = combined["market"] == market
+        mkt_mean = combined.loc[mask, "win_rate"].mean()
+        combined.loc[mask, "win_rate"] = (
+            combined.loc[mask, "win_rate"] - mkt_mean + 0.50
+        ).clip(0.30, 0.70)
 
     # --- Load and merge cards_meta.json ---
     meta_path = os.path.join(DATA_DIR, "cards_meta.json")
@@ -183,6 +196,80 @@ def _assign_deck_beta(rarity: str) -> float:
     if isinstance(rarity, str):
         return RARITY_BETA.get(rarity.lower(), 0.9)
     return 0.9
+
+
+def compute_dar(
+    card_names: list,
+    df: pd.DataFrame,
+    ucb_map: dict | None = None,
+    total_battles: int = 0,
+    c: float = 1.4,
+) -> float:
+    """
+    Deck Alpha Rating (DAR) — sigmoidal composite deck quality score.
+
+    Formula:
+        UCB_norm_i = (UCB_i − 0.50) / 0.30
+        where UCB_i = α_i·wr_personal + (1−α_i)·wr_global + c·√(ln(T+1)/(n_i+1))
+        and   α_i   = min(1.0, n_i / 30)
+
+        raw = 0.35·mean(ESR_i) + 0.35·mean(MPS_z_i)
+            + 0.20·mean(UCB_norm_i) − 0.10·mean(β_i)
+
+        DAR = tanh(raw)  ∈ (−1, 1)
+
+    Args:
+        card_names: List of card name strings (8 for a full deck)
+        df: Merged metrics DataFrame from compute_all_metrics()
+        ucb_map: Optional {card_name: {"ucb_score": float, "personal_win_rate": float,
+                                       "global_win_rate": float, "personal_games": int}}
+        total_battles: Total battles from player's battle log (used in exploration term)
+        c: UCB exploration constant (default 1.4)
+
+    Returns:
+        DAR score in (−1, 1)
+    """
+    ladder = df[df["market"] == "ladder"].copy()
+    card_meta = ladder.drop_duplicates("card_name").set_index("card_name")
+
+    esr_vals, mps_vals, ucb_norm_vals, beta_vals = [], [], [], []
+
+    for name in card_names:
+        if name in card_meta.index:
+            row = card_meta.loc[name]
+            esr = float(row.get("esr", 0.0))
+            mps = float(row.get("mps_z", 0.0))
+            beta = float(row.get("deck_beta", 0.9))
+            global_wr = float(row.get("win_rate", 0.5))
+        else:
+            esr, mps, beta, global_wr = 0.0, 0.0, 0.9, 0.5
+
+        # UCB component — blends personal performance with global meta
+        if ucb_map and name in ucb_map:
+            ucb_score = float(ucb_map[name].get("ucb_score", global_wr))
+        else:
+            # No personal data: use global win rate + small baseline exploration
+            n_i = 0
+            exploration = c * math.sqrt(math.log(total_battles + 2) / (n_i + 1))
+            ucb_score = global_wr + exploration * 0.05  # conservative for unknown cards
+
+        ucb_norm = (ucb_score - 0.50) / 0.30
+
+        esr_vals.append(esr)
+        mps_vals.append(mps)
+        ucb_norm_vals.append(ucb_norm)
+        beta_vals.append(beta)
+
+    if not esr_vals:
+        return 0.0
+
+    esr_bar = sum(esr_vals) / len(esr_vals)
+    mps_bar = sum(mps_vals) / len(mps_vals)
+    ucb_bar = sum(ucb_norm_vals) / len(ucb_norm_vals)
+    beta_bar = sum(beta_vals) / len(beta_vals)
+
+    raw = 0.35 * esr_bar + 0.35 * mps_bar + 0.20 * ucb_bar - 0.10 * beta_bar
+    return round(math.tanh(raw), 4)
 
 
 def build_card_history(card_name: str, df: pd.DataFrame) -> dict:

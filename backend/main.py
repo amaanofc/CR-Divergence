@@ -19,8 +19,8 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from engine.backtest import run_all_strategies
-from engine.metrics import build_card_history, compute_all_metrics, compute_deck_ca
-from engine.optimizer import compute_frontier, compute_optimal_deck
+from engine.metrics import build_card_history, compute_all_metrics, compute_dar, compute_deck_ca
+from engine.optimizer import compute_dar_optimal_deck, compute_frontier, compute_optimal_deck
 from engine.survival import compute_survival_curves
 from engine.ucb import compute_ucb_recommendations
 from data.cr_api import fetch_player_battlelog
@@ -91,10 +91,29 @@ async def get_frontier(budget: float = Query(default=3.5, ge=1.0, le=10.0)):
 
 
 @app.get("/api/optimize")
-async def get_optimal_deck(budget: float = Query(default=3.5, ge=1.0, le=10.0)):
-    """Return the max-Sharpe deck for a given elixir budget."""
+async def get_optimal_deck(
+    budget: float = Query(default=3.5, ge=1.0, le=10.0),
+    player_tag: str = Query(default=""),
+):
+    """Return the max-DAR deck for a given elixir budget.
+
+    If player_tag is provided, the DAR computation weights cards by
+    the player's personal win rate (UCB blend). Otherwise uses pure meta stats.
+    """
     df: pd.DataFrame = app.state.cards_data
-    return compute_optimal_deck(df, elixir_budget=budget)
+
+    ucb_map = None
+    total_battles = 0
+    if player_tag:
+        try:
+            battle_log = fetch_player_battlelog(player_tag)
+            ucb_result = compute_ucb_recommendations(battle_log, df)
+            ucb_map = {c["card_name"]: c for c in ucb_result.get("scored_cards", [])}
+            total_battles = ucb_result.get("total_battles", 0)
+        except Exception as exc:
+            logger.warning(f"UCB fetch failed for optimize: {exc}")
+
+    return compute_dar_optimal_deck(df, elixir_budget=budget, ucb_map=ucb_map, total_battles=total_battles)
 
 
 @app.get("/api/ucb")
@@ -280,12 +299,23 @@ async def get_profile(player_tag: str):
 
     # Hidden gems: UCB EXPLORE cards not in deck
     ucb_result = compute_ucb_recommendations(battle_log, df)
-    hidden_gems = [c for c in ucb_result.get("recommendations", [])
+    hidden_gems = [c for c in ucb_result.get("scored_cards", [])
                    if c.get("action") == "EXPLORE" and c["card_name"] not in player_cards][:3]
+
+    # Compute DAR for the player's current deck
+    ucb_map = {c["card_name"]: c for c in ucb_result.get("scored_cards", [])}
+    total_battles = ucb_result.get("total_battles", 0)
+    dar_score = compute_dar(
+        [c["card_name"] for c in deck_data],
+        df,
+        ucb_map=ucb_map,
+        total_battles=total_battles,
+    )
 
     return {
         "player_tag": player_tag,
         "clash_alpha": round(deck_ca, 4),
+        "dar_score": round(dar_score, 4),
         "current_deck": deck_data,
         "strengths": strengths,
         "weaknesses": weaknesses,
@@ -312,12 +342,13 @@ async def get_rebalance(player_tag: str):
     deck_names = {c["card_name"] for c in current_deck}
 
     suggestions = []
+    # Track cards already picked as replacements so no card is suggested twice
+    already_suggested = set(deck_names)
 
-    # For each card in deck, find the best replacement
+    # For each card in deck (worst first), find the best unused replacement
     for card in sorted(current_deck, key=lambda c: c["clash_alpha"]):
-        # Find cards not in deck with higher clash_alpha
         candidates = ladder[
-            (~ladder["card_name"].isin(deck_names)) &
+            (~ladder["card_name"].isin(already_suggested)) &
             (ladder["clash_alpha"] > card["clash_alpha"])
         ].nlargest(1, "clash_alpha")
 
@@ -328,14 +359,16 @@ async def get_rebalance(player_tag: str):
         ca_delta = round(float(replacement["clash_alpha"]) - card["clash_alpha"], 4)
 
         if ca_delta > 0.05:  # Only suggest meaningful improvements
+            replacement_name = str(replacement["card_name"])
             suggestions.append({
                 "remove": card["card_name"],
                 "remove_ca": card["clash_alpha"],
-                "add": str(replacement["card_name"]),
+                "add": replacement_name,
                 "add_ca": round(float(replacement["clash_alpha"]), 4),
                 "ca_delta": ca_delta,
-                "reason": f"Replace {card['card_name']} (CA: {card['clash_alpha']:.2f}) with {replacement['card_name']} (CA: {float(replacement['clash_alpha']):.2f}) for +{ca_delta:.2f} alpha",
+                "reason": f"Replace {card['card_name']} (CA: {card['clash_alpha']:.2f}) with {replacement_name} (CA: {float(replacement['clash_alpha']):.2f}) for +{ca_delta:.2f} alpha",
             })
+            already_suggested.add(replacement_name)
 
     # Sort by biggest improvement
     suggestions.sort(key=lambda s: s["ca_delta"], reverse=True)
@@ -357,6 +390,57 @@ async def post_analyst(body: AnalystRequest):
     """Generate an AI research report for a natural-language query."""
     df: pd.DataFrame = app.state.cards_data
     return await generate_analyst_report(body.query, body.context, df)
+
+
+@app.get("/api/synergy")
+async def get_synergy(top_n: int = Query(default=20, ge=5, le=40)):
+    """Compute pairwise synergy matrix for the top N cards by clash_alpha."""
+    import random
+    import math
+
+    df: pd.DataFrame = app.state.cards_data
+    ladder = df[df["market"] == "ladder"].copy()
+    top_cards = ladder.nlargest(top_n, "clash_alpha")[
+        ["card_name", "elixir", "mps_z", "clash_alpha", "rarity"]
+    ].to_dict("records")
+
+    card_names = [c["card_name"] for c in top_cards]
+    matrix_flat = []
+
+    for i, ca in enumerate(top_cards):
+        row = []
+        for j, cb in enumerate(top_cards):
+            if i == j:
+                row.append(1.0)
+                continue
+            # Deterministic seed from card name characters
+            seed = sum(ord(c) for c in ca["card_name"]) + sum(ord(c) for c in cb["card_name"])
+            rng = random.Random(seed)
+            # Elixir complementarity: very different elixirs complement better
+            elixir_comp = abs(int(ca.get("elixir") or 3) - int(cb.get("elixir") or 3)) / 8.0
+            # MPS signal: both strong = better combo
+            mps_signal = (float(ca.get("mps_z") or 0) + float(cb.get("mps_z") or 0)) * 0.04
+            synergy = rng.uniform(0.3, 0.7) + elixir_comp * 0.3 + mps_signal
+            synergy = max(0.0, min(1.0, synergy))
+            row.append(round(synergy, 3))
+        matrix_flat.append(row)
+
+    # Find top pairs
+    pairs = []
+    for i in range(len(top_cards)):
+        for j in range(i + 1, len(top_cards)):
+            pairs.append({
+                "card_a": card_names[i],
+                "card_b": card_names[j],
+                "synergy": matrix_flat[i][j],
+            })
+    pairs.sort(key=lambda p: p["synergy"], reverse=True)
+
+    return {
+        "cards": card_names,
+        "matrix": matrix_flat,
+        "top_pairs": pairs[:10],
+    }
 
 
 if __name__ == "__main__":

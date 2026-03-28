@@ -17,6 +17,7 @@ python -m data.generate_full_data            # Regenerate 120-card datasets
 python -m data.scraper                       # Re-scrape from RoyaleAPI (optional)
 pytest                                       # Run all tests (78/79 pass)
 pytest tests/test_api.py                     # Run API endpoint tests
+pytest tests/test_metrics.py::test_name      # Run a single test
 ```
 
 ### Frontend
@@ -25,6 +26,8 @@ cd frontend/
 npm install
 npm run dev       # Vite dev server (proxies /api -> backend)
 npm run build     # Production bundle
+npm run lint      # ESLint check
+npm run preview   # Preview production build locally
 ```
 
 ### Environment
@@ -91,6 +94,11 @@ POST /api/analyst  { query, context }             AI research report
 - **Contexts:** MetricContext (hover highlighting), PlayerContext (player tag + profile state)
 - Bloomberg aesthetic with Inter font for body, monospace for numbers
 - `vite.config.js` proxies `/api` to backend; `vercel.json` handles production rewrites
+- `src/hooks/useApi.js` — shared Axios hook used by all pages for data fetching
+
+### Design & Requirements
+
+`.kiro/specs/clash-markets/` contains the original requirements, design doc, and task breakdown that shaped this project.
 
 ### Invented Statistics
 

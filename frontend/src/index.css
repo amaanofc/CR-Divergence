@@ -1,8 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --glow-orange: 0 0 10px rgba(255, 107, 0, 0.5), 0 0 20px rgba(255, 107, 0, 0.2);
+  --glow-green:  0 0 8px rgba(34, 197, 94, 0.4);
+  --scanline-opacity: 0.025;
+}
 
 * {
   box-sizing: border-box;
@@ -12,28 +18,139 @@ body {
   margin: 0;
   background-color: #0a0e1a;
   color: #e0e0e0;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
 }
 
-/* Numbers stay monospace for that terminal feel */
-.font-mono {
-  font-family: 'Courier New', Courier, monospace;
+/* Scanline overlay on the main bg */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 3px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 4px
+  );
 }
 
+/* Monospace data font */
+.font-mono,
+.font-data {
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+.font-display {
+  font-family: 'Barlow Condensed', 'Impact', sans-serif;
+}
+
+/* Orange glow utility */
+.glow-orange {
+  box-shadow: var(--glow-orange);
+}
+.glow-green {
+  box-shadow: var(--glow-green);
+}
+
+/* Border glow on hover */
+.border-glow:hover {
+  box-shadow: var(--glow-orange);
+}
+
+/* Animated counter text (pure CSS) */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease both;
+}
+
+/* Blink for live indicator */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+.animate-blink {
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+/* Navbar progress bar */
+@keyframes loadBar {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+.animate-load-bar {
+  animation: loadBar 0.8s ease-out forwards;
+}
+
+/* Pulse glow for brand name */
+@keyframes pulseGlow {
+  0%, 100% { text-shadow: 0 0 6px rgba(255,107,0,0.4); }
+  50%       { text-shadow: 0 0 16px rgba(255,107,0,0.9), 0 0 30px rgba(255,107,0,0.4); }
+}
+.animate-glow-pulse {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Slide in from right */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);   opacity: 1; }
+}
+.animate-slide-in-right {
+  animation: slideInRight 0.25s ease-out both;
+}
+
+/* MPS heat bar fill */
+.mps-bar-positive {
+  background: linear-gradient(90deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.35) 100%);
+}
+.mps-bar-negative {
+  background: linear-gradient(90deg, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.15) 100%);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0f1623;
+  background: #080c18;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #1e2a3a;
-  border-radius: 3px;
+  background: rgba(255, 107, 0, 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 0, 0.7);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #ff6b00;
+/* Section title style */
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff6b00;
+  border-left: 3px solid #ff6b00;
+  padding-left: 10px;
+}
+
+/* Table row hover */
+.tr-hover:hover {
+  background: #0f1623;
+  border-left: 2px solid #ff6b00;
+}
+
+/* Numeric data */
+td.data-num, th.data-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
 }

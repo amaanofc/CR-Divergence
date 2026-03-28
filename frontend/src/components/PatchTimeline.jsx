@@ -57,10 +57,6 @@ export default function PatchTimeline({ selectedCard }) {
           <LineChart data={timeSeries} margin={{ top: 8, right: 16, left: 0, bottom: 24 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1e2a3a" />
 
-            {/* Shaded zones */}
-            <ReferenceArea y1={0.55} y2={0.70} fill="#22c55e" fillOpacity={0.05} />
-            <ReferenceArea y1={0.30} y2={0.45} fill="#ef4444" fillOpacity={0.05} />
-
             <XAxis
               dataKey="date"
               tick={{ fill: '#8a8a8a', fontSize: 9 }}
@@ -69,7 +65,10 @@ export default function PatchTimeline({ selectedCard }) {
             />
             <YAxis
               tick={{ fill: '#8a8a8a', fontSize: 9 }}
-              domain={['auto', 'auto']}
+              domain={[
+                dataMin => parseFloat((Math.max(0.30, dataMin - 0.03)).toFixed(2)),
+                dataMax => parseFloat((Math.min(0.75, dataMax + 0.03)).toFixed(2)),
+              ]}
               tickFormatter={v => `${(v * 100).toFixed(0)}%`}
             />
             <Tooltip
