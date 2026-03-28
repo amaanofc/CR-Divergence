@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find . -maxdepth 2 -type f \\\\\\(-name README* -o -name package.json -o -name Makefile -o -name tsconfig.json -o -name *.config.* \\\\\\))",
+      "Bash(\"C:/Users/amaan/CR-Divergence/.env\":*)",
+      "Bash(pip install:*)",
+      "Bash(python -c \"from main import app; print\\(''Main imports OK''\\)\")",
+      "Bash(timeout 5 uvicorn main:app --port 8000)",
+      "Bash(curl -s http://localhost:8000/api/cards?market=ladder)",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(npm install:*)",
+      "Bash(curl -s http://localhost:9000/api/frontier?budget=3.5)",
+      "Bash(curl -v \"http://localhost:9000/api/cards?market=gc\")",
+      "Bash(curl -s http://localhost:9000/api/optimize?budget=3.5)",
+      "Bash(curl -s http://localhost:9000/api/cards/Hog%20Rider/history)",
+      "Bash(curl -s http://localhost:9000/api/cross-market)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:9000/api/cards?market=ladder)",
+      "Bash(wc:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(npx vite:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

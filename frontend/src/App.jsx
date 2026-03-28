@@ -12,9 +12,9 @@ export default function App() {
   return (
     <MetricProvider>
       <PlayerProvider>
-        <div className="flex flex-col h-screen bg-bloomberg-bg text-bloomberg-text overflow-hidden">
+        <div className="flex flex-col h-screen bg-bloomberg-bg text-bloomberg-text">
           <NavBar />
-          <div className="flex-1 overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/connect" element={<ConnectPage />} />
