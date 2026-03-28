@@ -1,37 +1,30 @@
-import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { MetricProvider } from './context/MetricContext'
-import TopBar from './components/TopBar'
-import CardTicker from './components/CardTicker'
-import CentrePanel from './components/CentrePanel'
-import AnalogyExplainer from './components/AnalogyExplainer'
+import { PlayerProvider } from './context/PlayerContext'
+import NavBar from './components/NavBar'
+import LandingPage from './pages/LandingPage'
+import ConnectPage from './pages/ConnectPage'
+import ProfilePage from './pages/ProfilePage'
+import BuildDeckPage from './pages/BuildDeckPage'
+import PortfolioPage from './pages/PortfolioPage'
 
 export default function App() {
-  const [selectedCard, setSelectedCard] = useState(null)
-
   return (
     <MetricProvider>
-      <div className="flex flex-col h-screen bg-bloomberg-bg text-bloomberg-text font-mono overflow-hidden">
-        {/* Top ticker bar */}
-        <TopBar />
-
-        {/* Three-panel main layout */}
-        <div className="flex flex-1 overflow-hidden">
-          {/* Left panel — card screener */}
-          <div className="w-64 flex-shrink-0 border-r border-bloomberg-border overflow-y-auto">
-            <CardTicker onCardSelect={setSelectedCard} selectedCard={selectedCard} />
-          </div>
-
-          {/* Centre panel — tabbed content */}
+      <PlayerProvider>
+        <div className="flex flex-col h-screen bg-bloomberg-bg text-bloomberg-text overflow-hidden">
+          <NavBar />
           <div className="flex-1 overflow-hidden">
-            <CentrePanel selectedCard={selectedCard} />
-          </div>
-
-          {/* Right panel — Rosetta Stone */}
-          <div className="w-72 flex-shrink-0 border-l border-bloomberg-border overflow-y-auto">
-            <AnalogyExplainer />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/connect" element={<ConnectPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/build" element={<BuildDeckPage />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+            </Routes>
           </div>
         </div>
-      </div>
+      </PlayerProvider>
     </MetricProvider>
   )
 }

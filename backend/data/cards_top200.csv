@@ -1,31 +1,121 @@
 card_name,win_rate,usage_rate
-Hog Rider,0.552,0.180
-Goblin Barrel,0.538,0.150
-Mega Knight,0.485,0.125
-Skeleton Army,0.523,0.110
+Knight,0.475,0.063
+Archers,0.504,0.077
+Goblins,0.573,0.047
+Giant,0.453,0.038
+P.E.K.K.A,0.507,0.018
+Minions,0.497,0.052
+Balloon,0.543,0.09
+Witch,0.494,0.028
+Barbarians,0.487,0.075
+Golem,0.469,0.035
+Skeletons,0.482,0.081
 Valkyrie,0.531,0.125
+Skeleton Army,0.523,0.11
+Bomber,0.5,0.031
 Musketeer,0.519,0.105
+Baby Dragon,0.497,0.052
+Prince,0.486,0.045
 Wizard,0.476,0.065
-Fireball,0.547,0.190
-Arrows,0.513,0.090
+Mini P.E.K.K.A,0.544,0.056
+Spear Goblins,0.547,0.036
+Giant Skeleton,0.55,0.028
+Hog Rider,0.552,0.18
+Minion Horde,0.493,0.07
+Ice Wizard,0.517,0.06
+Royal Giant,0.461,0.04
+Guards,0.539,0.039
+Princess,0.529,0.08
+Dark Prince,0.468,0.046
+Three Musketeers,0.49,0.029
+Lava Hound,0.483,0.039
+Ice Spirit,0.441,0.054
+Fire Spirit,0.51,0.035
+Miner,0.535,0.105
+Sparky,0.468,0.05
+Bowler,0.546,0.047
+Lumberjack,0.524,0.08
+Battle Ram,0.491,0.033
+Inferno Dragon,0.522,0.065
+Ice Golem,0.543,0.019
+Mega Minion,0.502,0.034
+Dart Goblin,0.518,0.047
+Goblin Gang,0.506,0.069
+Electro Wizard,0.48,0.06
+Elite Barbarians,0.512,0.041
+Hunter,0.468,0.048
+Executioner,0.528,0.058
+Bandit,0.528,0.07
+Royal Recruits,0.483,0.047
+Night Witch,0.472,0.045
+Bats,0.503,0.045
+Royal Ghost,0.516,0.012
+Ram Rider,0.525,0.07
+Zappies,0.548,0.055
+Rascals,0.539,0.09
+Cannon Cart,0.499,0.038
+Mega Knight,0.485,0.125
+Skeleton Barrel,0.505,0.084
+Flying Machine,0.446,0.052
+Wall Breakers,0.459,0.005
+Royal Hogs,0.434,0.021
+Goblin Giant,0.547,0.027
+Fisherman,0.491,0.055
+Magic Archer,0.504,0.02
+Electro Dragon,0.531,0.023
+Firecracker,0.545,0.028
+Mighty Miner,0.486,0.034
+Super Witch,0.516,0.055
+Elixir Golem,0.52,0.024
+Battle Healer,0.493,0.035
+Skeleton King,0.553,0.037
+Super Lava Hound,0.509,0.048
+Super Magic Archer,0.489,0.034
+Archer Queen,0.528,0.05
+Santa Hog Rider,0.51,0.031
+Golden Knight,0.473,0.041
+Super Ice Golem,0.486,0.04
+Monk,0.434,0.044
+Super Archers,0.448,0.025
+Skeleton Dragons,0.537,0.021
+Terry,0.516,0.034
+Super Mini P.E.K.K.A,0.465,0.054
+Mother Witch,0.59,0.009
+Electro Spirit,0.462,0.062
+Electro Giant,0.464,0.033
+Raging Prince,0.515,0.048
+Phoenix,0.504,0.037
+Cannon,0.482,0.072
+Goblin Hut,0.495,0.05
+Mortar,0.49,0.049
+Inferno Tower,0.508,0.041
+Bomb Tower,0.474,0.057
+Barbarian Hut,0.572,0.048
+Tesla,0.527,0.063
+Elixir Collector,0.552,0.049
+X-Bow,0.517,0.05
+Tombstone,0.518,0.028
+Furnace,0.516,0.013
+Goblin Cage,0.515,0.051
+Goblin Drill,0.553,0.041
+Party Hut,0.561,0.036
+Fireball,0.547,0.19
+Arrows,0.513,0.09
+Rage,0.474,0.019
+Rocket,0.476,0.021
+Goblin Barrel,0.538,0.15
+Freeze,0.532,0.036
+Mirror,0.53,0.04
+Lightning,0.547,0.053
 Zap,0.508,0.155
+Poison,0.541,0.12
+Graveyard,0.53,0.095
 The Log,0.534,0.145
 Tornado,0.526,0.115
-Poison,0.541,0.120
-Graveyard,0.530,0.095
-Sparky,0.468,0.050
-Lumberjack,0.524,0.080
-Bandit,0.528,0.070
-Miner,0.535,0.105
-Electro Wizard,0.480,0.060
-Night Witch,0.472,0.045
-Royal Giant,0.461,0.040
-Balloon,0.543,0.090
-Pekka,0.521,0.100
-Golem,0.469,0.035
-Barbarians,0.487,0.075
-Ice Wizard,0.517,0.060
-Princess,0.529,0.080
-Inferno Dragon,0.522,0.065
-Ram Rider,0.525,0.070
-Fisherman,0.491,0.055
+Clone,0.487,0.035
+Earthquake,0.494,0.017
+Barbarian Barrel,0.534,0.055
+Heal Spirit,0.515,0.036
+Giant Snowball,0.538,0.005
+Royal Delivery,0.51,0.05
+Party Rocket,0.486,0.055

@@ -1,44 +1,364 @@
 date,card_name,change_type,stat_changed,magnitude
 2023-02-06,Hog Rider,nerf,damage,-0.08
 2023-02-06,Goblin Barrel,buff,damage,+0.06
+2023-02-06,Goblins,nerf,damage,-0.07
+2023-02-06,Minions,buff,range,+0.1
+2023-02-06,Cannon Cart,buff,spawn_rate,+0.07
+2023-02-06,Goblin Giant,nerf,spawn_rate,-0.09
+2023-02-06,Monk,nerf,hitpoints,-0.09
+2023-02-06,Party Hut,nerf,damage,-0.08
+2023-02-06,Giant Snowball,nerf,range,-0.11
 2023-04-03,Mega Knight,nerf,spawn_damage,-0.12
 2023-04-03,Skeleton Army,buff,count,+0.05
+2023-04-03,Dart Goblin,buff,range,+0.09
+2023-04-03,Rascals,nerf,spawn_rate,-0.05
+2023-04-03,Elixir Golem,nerf,hitpoints,-0.1
+2023-04-03,Phoenix,nerf,attack_speed,-0.05
+2023-04-03,Inferno Tower,nerf,hitpoints,-0.12
+2023-04-03,Bomb Tower,nerf,hitpoints,-0.12
+2023-04-03,Earthquake,nerf,range,-0.05
 2023-06-05,Sparky,buff,damage,+0.10
 2023-06-05,Wizard,nerf,damage,-0.07
+2023-06-05,Dark Prince,buff,hitpoints,+0.05
+2023-06-05,Three Musketeers,buff,spawn_rate,+0.1
+2023-06-05,Ice Golem,nerf,spawn_rate,-0.09
+2023-06-05,Elite Barbarians,buff,attack_speed,+0.1
+2023-06-05,Royal Hogs,nerf,attack_speed,-0.07
+2023-06-05,Electro Spirit,buff,range,+0.08
+2023-06-05,Barbarian Hut,buff,spawn_rate,+0.06
+2023-06-05,Fireball,nerf,spawn_rate,-0.05
+2023-06-05,Party Rocket,buff,attack_speed,+0.07
 2023-08-07,Balloon,buff,damage,+0.09
 2023-08-07,Valkyrie,nerf,hitpoints,-0.06
+2023-08-07,Archers,nerf,damage,-0.08
+2023-08-07,Spear Goblins,nerf,hitpoints,-0.07
+2023-08-07,Dark Prince,nerf,attack_speed,-0.05
+2023-08-07,Goblin Gang,nerf,spawn_rate,-0.08
+2023-08-07,Royal Recruits,nerf,attack_speed,-0.1
+2023-08-07,Cannon Cart,buff,hitpoints,+0.06
+2023-08-07,Skeleton Barrel,nerf,damage,-0.09
+2023-08-07,Mighty Miner,nerf,damage,-0.1
+2023-08-07,Battle Healer,nerf,hitpoints,-0.1
+2023-08-07,Super Ice Golem,nerf,range,-0.04
+2023-08-07,Barbarian Barrel,nerf,spawn_rate,-0.07
 2023-10-02,Miner,nerf,hitpoints,-0.08
 2023-10-02,Bandit,buff,damage,+0.07
 2023-10-02,Poison,nerf,damage,-0.05
+2023-10-02,Firecracker,nerf,damage,-0.11
+2023-10-02,Mother Witch,buff,attack_speed,+0.12
+2023-10-02,Goblin Hut,nerf,range,-0.04
+2023-10-02,Elixir Collector,nerf,hitpoints,-0.05
+2023-10-02,X-Bow,buff,range,+0.1
+2023-10-02,Furnace,nerf,spawn_rate,-0.05
+2023-10-02,Lightning,buff,damage,+0.11
+2023-10-02,Clone,buff,spawn_rate,+0.12
 2023-12-04,Graveyard,nerf,duration,-0.10
 2023-12-04,Lumberjack,buff,hitpoints,+0.06
+2023-12-04,Giant,nerf,spawn_rate,-0.1
+2023-12-04,Executioner,nerf,range,-0.07
+2023-12-04,Royal Recruits,nerf,attack_speed,-0.11
+2023-12-04,Super Magic Archer,buff,damage,+0.09
+2023-12-04,Super Mini P.E.K.K.A,nerf,range,-0.1
+2023-12-04,Giant Snowball,nerf,damage,-0.05
 2024-01-15,Hog Rider,buff,damage,+0.10
 2024-01-15,Goblin Barrel,nerf,damage,-0.08
+2024-01-15,Knight,buff,damage,+0.1
+2024-01-15,Mini P.E.K.K.A,buff,attack_speed,+0.06
+2024-01-15,Spear Goblins,nerf,damage,-0.1
+2024-01-15,Ice Spirit,buff,range,+0.09
+2024-01-15,Zappies,nerf,spawn_rate,-0.1
+2024-01-15,Rascals,nerf,attack_speed,-0.11
+2024-01-15,Super Archers,buff,range,+0.1
+2024-01-15,Mortar,nerf,hitpoints,-0.11
 2024-02-05,Pekka,nerf,hitpoints,-0.09
 2024-02-05,Musketeer,buff,damage,+0.07
+2024-02-05,P.E.K.K.A,buff,attack_speed,+0.09
+2024-02-05,Three Musketeers,buff,spawn_rate,+0.07
+2024-02-05,Fire Spirit,buff,spawn_rate,+0.05
+2024-02-05,Battle Ram,nerf,range,-0.1
+2024-02-05,Ice Golem,buff,attack_speed,+0.05
+2024-02-05,Archer Queen,nerf,range,-0.08
+2024-02-05,Super Archers,nerf,hitpoints,-0.09
+2024-02-05,Raging Prince,nerf,attack_speed,-0.05
+2024-02-05,Heal Spirit,buff,spawn_rate,+0.11
 2024-03-04,Inferno Dragon,buff,damage,+0.11
 2024-03-04,Night Witch,nerf,bat_spawn_rate,-0.07
+2024-03-04,Witch,nerf,spawn_rate,-0.04
+2024-03-04,Prince,nerf,hitpoints,-0.05
+2024-03-04,Giant Skeleton,buff,damage,+0.08
+2024-03-04,Hunter,buff,hitpoints,+0.08
+2024-03-04,Executioner,nerf,attack_speed,-0.12
+2024-03-04,Monk,buff,spawn_rate,+0.1
+2024-03-04,Super Mini P.E.K.K.A,nerf,damage,-0.08
 2024-04-01,Royal Giant,nerf,range,-0.06
 2024-04-01,Ice Wizard,buff,slow_duration,+0.08
+2024-04-01,Bomber,buff,attack_speed,+0.1
+2024-04-01,Prince,buff,range,+0.05
+2024-04-01,Lava Hound,nerf,range,-0.09
+2024-04-01,Goblin Giant,nerf,hitpoints,-0.08
+2024-04-01,Skeleton King,nerf,range,-0.07
+2024-04-01,Earthquake,buff,hitpoints,+0.09
 2024-05-06,Ram Rider,buff,hitpoints,+0.09
 2024-05-06,Tornado,nerf,pull_strength,-0.07
+2024-05-06,P.E.K.K.A,buff,range,+0.11
+2024-05-06,Minions,nerf,range,-0.05
+2024-05-06,Magic Archer,buff,hitpoints,+0.09
+2024-05-06,Super Witch,nerf,damage,-0.11
+2024-05-06,Terry,buff,hitpoints,+0.05
+2024-05-06,Tesla,buff,spawn_rate,+0.04
+2024-05-06,Mirror,nerf,range,-0.09
 2024-06-03,Electro Wizard,nerf,damage,-0.06
 2024-06-03,Princess,buff,damage,+0.08
+2024-06-03,Baby Dragon,nerf,spawn_rate,-0.07
+2024-06-03,Magic Archer,nerf,attack_speed,-0.11
+2024-06-03,Golden Knight,nerf,attack_speed,-0.1
 2024-07-01,Golem,nerf,hitpoints,-0.10
 2024-07-01,Barbarians,buff,damage,+0.07
+2024-07-01,Knight,buff,spawn_rate,+0.1
+2024-07-01,Royal Ghost,buff,spawn_rate,+0.08
+2024-07-01,Firecracker,nerf,damage,-0.05
+2024-07-01,Electro Spirit,nerf,range,-0.09
+2024-07-01,Electro Giant,nerf,damage,-0.09
+2024-07-01,Inferno Tower,nerf,damage,-0.09
+2024-07-01,Rage,nerf,attack_speed,-0.08
 2024-08-05,Fisherman,buff,hitpoints,+0.09
 2024-08-05,Zap,nerf,damage,-0.05
+2024-08-05,Goblins,nerf,attack_speed,-0.1
+2024-08-05,Bowler,nerf,spawn_rate,-0.08
+2024-08-05,Electro Dragon,buff,range,+0.1
+2024-08-05,Terry,nerf,spawn_rate,-0.08
+2024-08-05,Freeze,nerf,attack_speed,-0.07
 2024-09-02,The Log,buff,damage,+0.06
 2024-09-02,Arrows,nerf,damage,-0.04
+2024-09-02,Goblin Gang,nerf,range,-0.1
+2024-09-02,Bats,buff,range,+0.06
+2024-09-02,Santa Hog Rider,nerf,spawn_rate,-0.05
+2024-09-02,Mortar,buff,range,+0.08
+2024-09-02,Goblin Drill,buff,spawn_rate,+0.04
+2024-09-02,Party Hut,buff,attack_speed,+0.11
 2024-10-07,Sparky,nerf,charge_time,+0.08
 2024-10-07,Bandit,nerf,damage,-0.07
+2024-10-07,Skeletons,buff,attack_speed,+0.09
+2024-10-07,Guards,nerf,range,-0.05
+2024-10-07,Flying Machine,nerf,spawn_rate,-0.1
+2024-10-07,Wall Breakers,buff,attack_speed,+0.08
+2024-10-07,Super Ice Golem,buff,attack_speed,+0.09
+2024-10-07,Goblin Cage,nerf,range,-0.08
+2024-10-07,Lightning,buff,attack_speed,+0.05
 2024-11-04,Miner,buff,hitpoints,+0.08
 2024-11-04,Graveyard,buff,skeleton_count,+0.06
+2024-11-04,Giant,nerf,attack_speed,-0.07
+2024-11-04,Mighty Miner,nerf,hitpoints,-0.05
+2024-11-04,Super Lava Hound,nerf,spawn_rate,-0.09
 2024-12-02,Mega Knight,buff,hitpoints,+0.07
 2024-12-02,Lumberjack,nerf,damage,-0.06
+2024-12-02,Skeletons,nerf,attack_speed,-0.1
+2024-12-02,Elixir Golem,buff,hitpoints,+0.09
+2024-12-02,Cannon,buff,attack_speed,+0.08
+2024-12-02,Clone,nerf,damage,-0.07
 2025-01-06,Balloon,nerf,hitpoints,-0.08
 2025-01-06,Valkyrie,buff,damage,+0.09
+2025-01-06,Baby Dragon,nerf,spawn_rate,-0.08
+2025-01-06,Lava Hound,buff,spawn_rate,+0.12
+2025-01-06,Golden Knight,nerf,range,-0.06
+2025-01-06,Skeleton Dragons,nerf,hitpoints,-0.05
+2025-01-06,Electro Giant,nerf,damage,-0.09
+2025-01-06,Goblin Hut,nerf,damage,-0.11
+2025-01-06,Tombstone,nerf,damage,-0.05
+2025-01-06,Heal Spirit,nerf,spawn_rate,-0.12
+2025-01-06,Royal Delivery,nerf,damage,-0.05
 2025-02-03,Hog Rider,nerf,hitpoints,-0.07
 2025-02-03,Skeleton Army,nerf,count,-0.05
+2025-02-03,Archers,buff,range,+0.08
+2025-02-03,Witch,buff,damage,+0.06
+2025-02-03,Elite Barbarians,nerf,damage,-0.05
+2025-02-03,Super Witch,nerf,range,-0.09
+2025-02-03,Archer Queen,nerf,spawn_rate,-0.05
+2025-02-03,Raging Prince,buff,attack_speed,+0.11
+2025-02-03,Rage,nerf,damage,-0.1
 2025-03-03,Pekka,buff,damage,+0.10
 2025-03-03,Ram Rider,nerf,damage,-0.06
+2025-03-03,Minion Horde,nerf,damage,-0.11
+2025-03-03,Guards,buff,range,+0.12
+2025-03-03,Mega Minion,buff,range,+0.11
+2025-03-03,Wall Breakers,nerf,hitpoints,-0.11
+2025-03-03,Battle Healer,buff,damage,+0.07
+2025-03-03,Fireball,buff,range,+0.09
+2025-03-03,Rocket,buff,attack_speed,+0.08
+2025-04-07,Earthquake,nerf,hitpoints,-0.05
+2025-04-07,Barbarians,buff,range,+0.1
+2025-04-07,Three Musketeers,nerf,damage,-0.1
+2025-04-07,Bowler,nerf,spawn_rate,-0.1
+2025-04-07,Phoenix,nerf,hitpoints,-0.08
+2025-04-07,Furnace,buff,spawn_rate,+0.04
+2025-04-07,Cannon Cart,buff,range,+0.07
+2025-04-07,Hunter,nerf,hitpoints,-0.09
+2025-04-07,Goblin Cage,nerf,attack_speed,-0.06
+2025-04-07,Super Witch,buff,range,+0.05
+2025-04-07,Golden Knight,nerf,attack_speed,-0.07
+2025-04-07,Royal Recruits,buff,range,+0.08
+2025-05-05,Fireball,buff,hitpoints,+0.07
+2025-05-05,Inferno Dragon,nerf,damage,-0.06
+2025-05-05,Tesla,nerf,spawn_rate,-0.09
+2025-05-05,Goblins,nerf,range,-0.07
+2025-05-05,Dart Goblin,nerf,range,-0.05
+2025-05-05,Valkyrie,buff,hitpoints,+0.07
+2025-05-05,Super Lava Hound,buff,damage,+0.1
+2025-05-05,The Log,buff,spawn_rate,+0.06
+2025-05-05,Hog Rider,nerf,range,-0.05
+2025-05-05,Santa Hog Rider,nerf,hitpoints,-0.09
+2025-05-05,Goblin Hut,buff,attack_speed,+0.07
+2025-05-05,Lightning,nerf,hitpoints,-0.09
+2025-05-05,Wall Breakers,nerf,damage,-0.09
+2025-05-05,Princess,nerf,hitpoints,-0.06
+2025-05-05,Bats,nerf,hitpoints,-0.06
+2025-05-05,Tombstone,nerf,attack_speed,-0.04
+2025-05-05,Lava Hound,buff,spawn_rate,+0.09
+2025-05-05,Miner,buff,range,+0.09
+2025-05-05,Goblin Gang,nerf,spawn_rate,-0.07
+2025-05-05,Balloon,buff,attack_speed,+0.08
+2025-06-02,Witch,nerf,hitpoints,-0.08
+2025-06-02,Fire Spirit,nerf,attack_speed,-0.06
+2025-06-02,Skeleton Dragons,buff,hitpoints,+0.06
+2025-06-02,Archer Queen,nerf,attack_speed,-0.07
+2025-06-02,Three Musketeers,nerf,attack_speed,-0.06
+2025-06-02,Giant Skeleton,nerf,hitpoints,-0.1
+2025-06-02,Magic Archer,nerf,damage,-0.05
+2025-06-02,Flying Machine,buff,damage,+0.09
+2025-06-02,Party Rocket,nerf,damage,-0.07
+2025-06-02,Barbarian Hut,buff,hitpoints,+0.06
+2025-06-02,Mortar,buff,range,+0.09
+2025-07-07,Bomb Tower,nerf,attack_speed,-0.09
+2025-07-07,Giant Snowball,buff,damage,+0.05
+2025-07-07,Royal Giant,buff,damage,+0.09
+2025-07-07,Valkyrie,buff,attack_speed,+0.05
+2025-07-07,Super Lava Hound,nerf,spawn_rate,-0.05
+2025-07-07,Giant Skeleton,buff,range,+0.04
+2025-07-07,Goblin Barrel,buff,range,+0.07
+2025-07-07,Hog Rider,nerf,spawn_rate,-0.1
+2025-07-07,Mighty Miner,nerf,spawn_rate,-0.07
+2025-07-07,Mother Witch,nerf,range,-0.06
+2025-07-07,Santa Hog Rider,buff,damage,+0.04
+2025-07-07,Rage,buff,spawn_rate,+0.05
+2025-07-07,Night Witch,buff,damage,+0.08
+2025-07-07,Knight,buff,attack_speed,+0.06
+2025-07-07,Bats,nerf,damage,-0.08
+2025-07-07,Lava Hound,buff,spawn_rate,+0.06
+2025-07-07,Rocket,buff,range,+0.08
+2025-07-07,Royal Ghost,buff,spawn_rate,+0.04
+2025-07-07,Sparky,nerf,range,-0.08
+2025-08-04,Graveyard,nerf,range,-0.05
+2025-08-04,Royal Hogs,nerf,hitpoints,-0.1
+2025-08-04,Goblin Barrel,nerf,hitpoints,-0.06
+2025-08-04,Raging Prince,buff,damage,+0.08
+2025-08-04,Lumberjack,nerf,spawn_rate,-0.05
+2025-08-04,Giant,nerf,hitpoints,-0.07
+2025-08-04,Ram Rider,nerf,damage,-0.08
+2025-08-04,Ice Golem,nerf,range,-0.09
+2025-08-04,Super Ice Golem,nerf,spawn_rate,-0.08
+2025-08-04,Super Magic Archer,buff,hitpoints,+0.1
+2025-08-04,Poison,nerf,attack_speed,-0.07
+2025-08-04,Battle Ram,buff,damage,+0.07
+2025-08-04,X-Bow,nerf,range,-0.07
+2025-09-01,Witch,buff,spawn_rate,+0.08
+2025-09-01,Clone,nerf,range,-0.04
+2025-09-01,Giant Snowball,buff,spawn_rate,+0.07
+2025-09-01,Arrows,nerf,damage,-0.1
+2025-09-01,P.E.K.K.A,nerf,attack_speed,-0.09
+2025-09-01,Elixir Collector,buff,hitpoints,+0.08
+2025-09-01,Minions,nerf,spawn_rate,-0.06
+2025-09-01,Guards,nerf,spawn_rate,-0.05
+2025-09-01,Zappies,nerf,range,-0.09
+2025-10-06,P.E.K.K.A,buff,damage,+0.04
+2025-10-06,Golem,buff,attack_speed,+0.04
+2025-10-06,Mirror,buff,range,+0.05
+2025-10-06,Prince,nerf,range,-0.09
+2025-10-06,Executioner,buff,attack_speed,+0.09
+2025-10-06,Guards,nerf,attack_speed,-0.08
+2025-10-06,Super Ice Golem,buff,attack_speed,+0.05
+2025-10-06,Night Witch,buff,spawn_rate,+0.08
+2025-10-06,Archers,buff,range,+0.09
+2025-10-06,Royal Delivery,nerf,range,-0.08
+2025-10-06,Ice Spirit,nerf,spawn_rate,-0.07
+2025-11-03,Ice Wizard,buff,damage,+0.08
+2025-11-03,Spear Goblins,nerf,damage,-0.05
+2025-11-03,Electro Dragon,nerf,hitpoints,-0.05
+2025-11-03,Heal Spirit,nerf,hitpoints,-0.07
+2025-11-03,Electro Spirit,buff,attack_speed,+0.08
+2025-11-03,Electro Giant,nerf,spawn_rate,-0.07
+2025-11-03,Super Mini P.E.K.K.A,nerf,attack_speed,-0.09
+2025-11-03,Hunter,nerf,range,-0.08
+2025-11-03,Battle Healer,buff,spawn_rate,+0.1
+2025-11-03,Mega Minion,nerf,spawn_rate,-0.09
+2025-11-03,Archers,nerf,range,-0.09
+2025-11-03,Mega Knight,nerf,range,-0.04
+2025-11-03,Mortar,nerf,range,-0.09
+2025-11-03,Skeleton King,nerf,range,-0.05
+2025-11-03,Goblin Gang,nerf,range,-0.08
+2025-12-01,Super Archers,buff,spawn_rate,+0.07
+2025-12-01,Tesla,nerf,spawn_rate,-0.05
+2025-12-01,Skeleton Dragons,buff,range,+0.09
+2025-12-01,Pekka,buff,spawn_rate,+0.06
+2025-12-01,Cannon,buff,hitpoints,+0.08
+2025-12-01,Spear Goblins,buff,range,+0.04
+2025-12-01,Freeze,buff,range,+0.08
+2025-12-01,Zap,buff,spawn_rate,+0.07
+2025-12-01,Bandit,buff,damage,+0.1
+2025-12-01,Furnace,buff,damage,+0.1
+2025-12-01,Fisherman,nerf,range,-0.09
+2025-12-01,Golem,buff,hitpoints,+0.09
+2025-12-01,Cannon Cart,nerf,spawn_rate,-0.06
+2025-12-01,Super Mini P.E.K.K.A,nerf,damage,-0.05
+2025-12-01,Super Witch,buff,damage,+0.09
+2025-12-01,Wall Breakers,nerf,damage,-0.07
+2025-12-01,Golden Knight,buff,damage,+0.05
+2025-12-01,Royal Delivery,nerf,range,-0.06
+2026-01-05,Graveyard,buff,hitpoints,+0.08
+2026-01-05,Ice Wizard,nerf,spawn_rate,-0.09
+2026-01-05,Baby Dragon,buff,damage,+0.08
+2026-01-05,Inferno Tower,buff,damage,+0.04
+2026-01-05,Skeletons,buff,spawn_rate,+0.04
+2026-01-05,Fisherman,buff,attack_speed,+0.05
+2026-01-05,Magic Archer,nerf,range,-0.08
+2026-01-05,Executioner,buff,range,+0.04
+2026-01-05,Dark Prince,nerf,attack_speed,-0.07
+2026-01-05,Goblin Hut,nerf,attack_speed,-0.09
+2026-01-05,Electro Giant,buff,attack_speed,+0.07
+2026-01-05,Skeleton Army,nerf,attack_speed,-0.04
+2026-01-05,Mini P.E.K.K.A,buff,attack_speed,+0.08
+2026-01-05,Minion Horde,buff,range,+0.07
+2026-01-05,Musketeer,nerf,spawn_rate,-0.07
+2026-01-05,X-Bow,buff,spawn_rate,+0.1
+2026-01-05,Balloon,nerf,damage,-0.05
+2026-02-02,Rascals,buff,spawn_rate,+0.07
+2026-02-02,Terry,nerf,damage,-0.05
+2026-02-02,Bomb Tower,nerf,hitpoints,-0.06
+2026-02-02,Wizard,nerf,spawn_rate,-0.04
+2026-02-02,Arrows,buff,range,+0.07
+2026-02-02,Barbarian Barrel,buff,attack_speed,+0.05
+2026-02-02,Skeleton Barrel,nerf,damage,-0.1
+2026-02-02,Mighty Miner,buff,damage,+0.08
+2026-02-02,Mirror,buff,attack_speed,+0.09
+2026-02-02,Minions,buff,damage,+0.09
+2026-02-02,Goblin Drill,nerf,spawn_rate,-0.07
+2026-02-02,Musketeer,buff,spawn_rate,+0.09
+2026-02-02,Mega Minion,buff,attack_speed,+0.05
+2026-02-02,Elixir Golem,nerf,damage,-0.09
+2026-02-02,Miner,buff,attack_speed,+0.05
+2026-02-02,Tornado,buff,range,+0.09
+2026-03-02,Inferno Dragon,nerf,spawn_rate,-0.06
+2026-03-02,Monk,nerf,spawn_rate,-0.05
+2026-03-02,Goblin Giant,nerf,spawn_rate,-0.07
+2026-03-02,Firecracker,nerf,attack_speed,-0.1
+2026-03-02,Bandit,buff,hitpoints,+0.04
+2026-03-02,Phoenix,nerf,hitpoints,-0.08
+2026-03-02,Mother Witch,buff,hitpoints,+0.04
+2026-03-02,Electro Wizard,nerf,spawn_rate,-0.06
+2026-03-02,Heal Spirit,buff,damage,+0.06
+2026-03-02,Party Hut,buff,damage,+0.06
+2026-03-02,Zappies,nerf,range,-0.09
+2026-03-02,Super Magic Archer,nerf,hitpoints,-0.08
+2026-03-02,Bomber,nerf,attack_speed,-0.07
+2026-03-02,Elite Barbarians,buff,range,+0.05
+2026-03-02,Skeleton King,buff,range,+0.1
+2026-03-02,Tombstone,buff,hitpoints,+0.05

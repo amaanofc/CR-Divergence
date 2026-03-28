@@ -16,14 +16,24 @@ from hypothesis import strategies as st
 
 def _card_df(n=10):
     """Build a minimal card DataFrame with required columns."""
+    rng = np.random.RandomState(42)
+    win_rates = rng.uniform(0.40, 0.65, n)
+    usage_rates = rng.uniform(0.01, 0.30, n)
     data = {
         "card_name": [f"Card_{i}" for i in range(n)],
-        "win_rate": np.random.uniform(0.40, 0.65, n),
-        "usage_rate": np.random.uniform(0.01, 0.30, n),
-        "elixir": np.random.choice([2, 3, 4, 5, 6], n).astype(float),
-        "rarity": np.random.choice(["common", "rare", "epic", "legendary"], n),
-        "type": np.random.choice(["Troop", "Spell", "Building"], n),
+        "win_rate": win_rates,
+        "usage_rate": usage_rates,
+        "elixir": rng.choice([2, 3, 4, 5, 6], n).astype(float),
+        "rarity": rng.choice(["common", "rare", "epic", "legendary"], n),
+        "type": rng.choice(["Troop", "Spell", "Building"], n),
         "market": ["ladder"] * n,
+        "mps_z": rng.normal(0, 1, n),
+        "esr": rng.normal(0, 0.5, n),
+        "deck_beta": rng.uniform(0.7, 1.3, n),
+        "win_rate_vol": rng.uniform(0.01, 0.05, n),
+        "clash_alpha": rng.normal(0, 0.5, n),
+        "meta_momentum": rng.normal(0, 0.3, n),
+        "mps": rng.normal(0, 0.02, n),
     }
     return pd.DataFrame(data)
 
@@ -359,7 +369,6 @@ def test_serialisation_round_trip(win_rate, usage_rate, mps_z, esr, meta_momentu
 # Feature: clash-markets, Property 14: equity curve is non-empty with valid structure
 # ---------------------------------------------------------------------------
 
-@settings(max_examples=20)
 def test_backtest_equity_curve_structure():
     """Each strategy equity_curve must be non-empty with date and cumulative_win_rate."""
     import sys, os

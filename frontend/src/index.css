@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +12,11 @@ body {
   margin: 0;
   background-color: #0a0e1a;
   color: #e0e0e0;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Numbers stay monospace for that terminal feel */
+.font-mono {
   font-family: 'Courier New', Courier, monospace;
 }
 

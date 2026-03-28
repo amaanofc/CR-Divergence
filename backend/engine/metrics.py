@@ -189,6 +189,9 @@ def build_card_history(card_name: str, df: pd.DataFrame) -> dict:
     """
     Build a 180-day win-rate time series for a card using patch history.
 
+    Uses card-name-seeded RNG for deterministic daily noise and sigmoid-smoothed
+    patch transitions over 7 days to produce realistic-looking time series.
+
     Args:
         card_name: Name of the card
         df: Merged metrics DataFrame
@@ -211,43 +214,106 @@ def build_card_history(card_name: str, df: pd.DataFrame) -> dict:
 
     current_win_rate = float(card_rows["win_rate"].iloc[0]) if not card_rows.empty else 0.50
 
-    # Synthesise 180-day time series walking backwards from today
+    # Deterministic RNG seeded by card name
+    seed = sum(ord(c) for c in card_name) * 31
+    rng = np.random.RandomState(seed)
+
     today = datetime.now().date()
     start_date = today - timedelta(days=180)
 
-    # Build win rate at each patch boundary
+    # Collect patch events within our window
     patch_events = []
     for _, row in card_patches.iterrows():
         patch_date = row["date"].date() if hasattr(row["date"], "date") else row["date"]
         if patch_date >= start_date:
+            mag_raw = row["magnitude"]
+            if pd.notna(mag_raw):
+                mag = float(str(mag_raw).replace("+", ""))
+            else:
+                mag = 0.0
             patch_events.append({
                 "date": str(patch_date),
                 "change_type": row["change_type"],
                 "stat_changed": row["stat_changed"],
-                "magnitude": float(row["magnitude"]) if pd.notna(row["magnitude"]) else 0.0,
+                "magnitude": mag,
             })
 
-    # Walk backwards: start from current win rate, subtract patch magnitudes
-    win_rate_at_date = {}
-    wr = current_win_rate
-    sorted_patches = sorted(patch_events, key=lambda x: x["date"], reverse=True)
+    # Build base win rate curve walking FORWARD from day 0
+    # First, compute win rate at start by walking backwards from current
+    wr_start = current_win_rate
+    sorted_patches_rev = sorted(patch_events, key=lambda x: x["date"], reverse=True)
+    for pe in sorted_patches_rev:
+        mag = abs(pe["magnitude"])
+        if pe["change_type"] == "buff":
+            wr_start -= mag  # undo the buff
+        else:
+            wr_start += mag  # undo the nerf
 
-    for i, day_offset in enumerate(range(180, -1, -1)):
-        date = today - timedelta(days=day_offset)
+    # Now walk forward, applying patches with sigmoid smoothing
+    dates = []
+    base_wr = []
+    wr = wr_start
+
+    # Pre-index patches by date for fast lookup
+    patch_by_date = {}
+    for pe in patch_events:
+        patch_by_date[pe["date"]] = pe
+
+    # Track pending transitions: list of (target_shift, days_remaining, total_days)
+    active_transitions = []
+
+    for day_offset in range(181):
+        date = start_date + timedelta(days=day_offset)
         date_str = str(date)
+        dates.append(date_str)
 
-        # Apply patch effects when walking backwards
-        for pe in sorted_patches:
-            if pe["date"] == date_str:
-                mag = pe["magnitude"]
-                if pe["change_type"] == "buff":
-                    wr = max(0.0, wr - abs(mag))
-                else:
-                    wr = min(1.0, wr + abs(mag))
+        # Check for new patch on this day
+        if date_str in patch_by_date:
+            pe = patch_by_date[date_str]
+            mag = abs(pe["magnitude"])
+            shift = mag if pe["change_type"] == "buff" else -mag
+            active_transitions.append({"shift": shift, "day": 0, "total": 7})
 
-        win_rate_at_date[date_str] = round(wr, 4)
+        # Apply sigmoid-smoothed transitions
+        daily_shift = 0.0
+        still_active = []
+        for t in active_transitions:
+            t["day"] += 1
+            # Sigmoid: maps day/total from 0→1 through S-curve
+            progress = t["day"] / t["total"]
+            if progress >= 1.0:
+                daily_shift += t["shift"]  # fully applied
+            else:
+                # Sigmoid interpolation
+                sigmoid = 1.0 / (1.0 + np.exp(-12 * (progress - 0.5)))
+                daily_shift += t["shift"] * sigmoid
+                still_active.append(t)
+        active_transitions = still_active
 
-    time_series = [{"date": d, "win_rate": v} for d, v in sorted(win_rate_at_date.items())]
+        wr_today = wr + daily_shift
+        base_wr.append(wr_today)
+
+        # Once a transition is fully done, absorb it into base wr
+        if not still_active and active_transitions == []:
+            wr = wr_today
+
+    # Absorb any final remaining transitions
+    if base_wr:
+        wr = base_wr[-1]
+
+    # Add daily Gaussian noise for realism
+    noise = rng.normal(0, 0.005, len(base_wr))
+
+    # Also add a slow drift component (random walk) for organic feel
+    drift = rng.normal(0, 0.001, len(base_wr)).cumsum()
+    # Mean-revert drift so it doesn't wander too far
+    drift = drift - np.linspace(drift[0], drift[-1], len(drift)) * 0.5
+
+    time_series = []
+    for i, date_str in enumerate(dates):
+        wr_final = base_wr[i] + noise[i] + drift[i]
+        wr_final = max(0.30, min(0.70, wr_final))
+        time_series.append({"date": date_str, "win_rate": round(wr_final, 4)})
 
     return {
         "card_name": card_name,
